@@ -50,20 +50,24 @@ textarea.form-control{resize:none;min-height:76px;line-height:1.55}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .fupload{border:1.5px dashed var(--border2);border-radius:var(--radius-sm);padding:14px 12px;text-align:center;background:var(--bg);position:relative;cursor:pointer}
 .fupload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.fupload .fz-icon{font-size:22px;margin-bottom:4px}
-.fupload .fz-lbl{font-size:13px;color:var(--text2);font-weight:500}
-.fupload .fz-hint{font-size:11px;color:var(--text3);margin-top:2px}
+.fz-icon{font-size:22px;margin-bottom:4px}.fz-lbl{font-size:13px;color:var(--text2);font-weight:500}.fz-hint{font-size:11px;color:var(--text3);margin-top:2px}
 .file-list{margin-top:8px;display:flex;flex-direction:column;gap:5px}
 .file-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--blue-light);border-radius:var(--radius-sm);font-size:12px}
 .file-item .fn{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text1)}
 .file-item .fsz{color:var(--text3);font-size:11px;flex-shrink:0}
 .rmf{background:none;border:none;cursor:pointer;color:var(--text3);font-size:15px;padding:0 2px;flex-shrink:0}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 18px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:opacity .15s,transform .1s;width:100%;font-family:inherit}
+
+/* BUTTONS — clean text, no icon clutter */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 18px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:opacity .15s,transform .1s;width:100%;font-family:inherit;letter-spacing:.01em}
 .btn:active{transform:scale(.98)}
 .btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-mid)}
 .btn-outline{background:var(--white);color:var(--blue);border:1.5px solid var(--blue)}
 .btn-danger{background:var(--red-light);color:var(--red);border:1px solid #FECACA}
-.btn-sm{padding:7px 14px;font-size:12px;width:auto}
+.btn-ghost{background:var(--bg);color:var(--text2);border:1px solid var(--border)}
+.btn-sm{padding:8px 14px;font-size:13px;width:auto}
+
+/* PROGRESS */
 .progress-wrap{position:relative;height:20px;background:#F3F4F6;border-radius:50px;overflow:hidden;border:1px solid var(--border)}
 .progress-bar{height:100%;border-radius:50px;transition:width .4s ease}
 .plbl{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:700}
@@ -71,6 +75,8 @@ textarea.form-control{resize:none;min-height:76px;line-height:1.55}
 input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:3px;background:var(--border);outline:none;cursor:pointer}
 input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--blue);cursor:pointer;border:3px solid var(--white);box-shadow:0 1px 4px rgba(0,0,0,.18)}
 .slider-val{text-align:center;font-size:26px;font-weight:700;color:var(--blue);margin:8px 0 4px;line-height:1}
+
+/* TASK CARDS */
 .task-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);margin:6px 14px;padding:13px;cursor:pointer;transition:border-color .15s}
 .task-card:active{border-color:var(--blue)}
 .tc-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
@@ -86,6 +92,8 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
 .sbadge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;flex-shrink:0}
 .s-new{background:#EFF6FF;color:#1D4ED8}.s-prog{background:#FFF7ED;color:#C2410C}
 .s-done{background:#F0FDF4;color:#15803D}.s-over{background:#FEF2F2;color:#B91C1C}
+
+/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:flex-end}
 .modal-overlay.open{display:flex}
 .modal-sheet{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-width:480px;margin:0 auto;max-height:93vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:var(--safe-bottom)}
@@ -100,6 +108,8 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
 .acc-arrow.open{transform:rotate(180deg)}
 .acc-body{padding:13px;border-top:1px solid var(--border);display:none}
 .acc-body.open{display:block}
+
+/* SEARCH */
 .search-wrap{padding:12px 14px 0}
 .search-inner{position:relative}
 .search-inner input{width:100%;padding:9px 12px 9px 36px;border:1px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;background:var(--white);outline:none;color:var(--text1);font-family:inherit}
@@ -109,14 +119,20 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
 .filter-row::-webkit-scrollbar{display:none}
 .filter-btn{padding:5px 13px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--text2);white-space:nowrap;flex-shrink:0;transition:all .15s}
 .filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* REPORT */
 .report-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 14px 10px}
 .rstat{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:13px;text-align:center}
 .rstat .rv{font-size:30px;font-weight:700;line-height:1}
 .rstat .rl{font-size:11px;color:var(--text3);margin-top:3px}
+
+/* EMPTY */
 .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:52px 24px;text-align:center}
 .empty-icon{font-size:48px;margin-bottom:12px;opacity:.3}
 .empty-title{font-size:15px;font-weight:600;color:var(--text2);margin-bottom:5px}
 .empty-desc{font-size:13px;color:var(--text3);line-height:1.5}
+
+/* TOAST + SUCCESS */
 .toast{position:fixed;bottom:calc(72px + var(--safe-bottom) + 8px);left:50%;transform:translateX(-50%) translateY(16px);background:var(--navy);color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:500;opacity:0;transition:all .22s;z-index:400;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .success-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:500;pointer-events:none;opacity:0;transition:opacity .25s;background:rgba(0,0,0,0)}
@@ -125,13 +141,50 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
 .success-check{font-size:46px;margin-bottom:8px}
 .success-title{font-size:16px;font-weight:700;color:var(--text1)}
 .success-sub{font-size:12px;color:var(--text3);margin-top:4px;max-width:200px;line-height:1.4}
+
+/* SYNC */
 .sync-bar{background:var(--blue-light);border-bottom:1px solid #BBDEFB;padding:7px 14px;font-size:12px;color:var(--blue);display:flex;align-items:center;gap:7px;flex-shrink:0}
 .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}.pulsing{animation:pulse 1s infinite}
+.sync-status{font-size:10px;color:var(--text3);margin-left:auto;flex-shrink:0}
+
+/* META */
 .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;margin-bottom:14px}
 .meta-item .ml{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);margin-bottom:2px}
 .meta-item .mv{font-weight:600;color:var(--text1)}
 .edit-banner{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:var(--radius-sm);padding:8px 12px;font-size:12px;color:#1D4ED8;display:flex;align-items:center;gap:6px;margin-bottom:13px;font-weight:500}
+
+/* AI CHAT */
+.ai-fab{position:fixed;bottom:calc(80px + var(--safe-bottom));right:16px;width:50px;height:50px;border-radius:50%;background:var(--blue);color:#fff;border:none;cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;z-index:150;box-shadow:0 4px 16px rgba(21,101,192,.35);transition:transform .15s}
+.ai-fab:active{transform:scale(.92)}
+.ai-modal{position:fixed;inset:0;z-index:250;display:none;flex-direction:column;background:var(--white);max-width:480px;margin:0 auto}
+.ai-modal.open{display:flex}
+.ai-hdr{background:var(--blue);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ai-hdr-icon{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:18px}
+.ai-hdr-text .at{font-size:15px;font-weight:700}
+.ai-hdr-text .as{font-size:11px;opacity:.75}
+.ai-close{margin-left:auto;background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px}
+.ai-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}
+.ai-msg{max-width:85%;padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.55}
+.ai-msg.user{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.ai-msg.bot{background:var(--bg);color:var(--text1);align-self:flex-start;border-bottom-left-radius:4px;border:1px solid var(--border)}
+.ai-msg.thinking{color:var(--text3);font-style:italic}
+.ai-input-row{display:flex;gap:8px;padding:10px 14px;padding-bottom:calc(10px + var(--safe-bottom));border-top:1px solid var(--border);background:var(--white);flex-shrink:0}
+.ai-input{flex:1;padding:10px 13px;border:1px solid var(--border2);border-radius:20px;font-size:14px;outline:none;font-family:inherit;color:var(--text1)}
+.ai-input:focus{border-color:var(--blue)}
+.ai-send{background:var(--blue);color:#fff;border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ai-send:disabled{opacity:.4}
+.ai-send:active{transform:scale(.92)}
+.ai-chips{display:flex;gap:6px;padding:0 14px 8px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.ai-chips::-webkit-scrollbar{display:none}
+.ai-chip{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--text2);white-space:nowrap;flex-shrink:0}
+.ai-chip:active{background:var(--blue-light)}
+
+/* AI KEY SETUP */
+.ai-setup{padding:20px 16px;text-align:center}
+.ai-setup-icon{font-size:40px;margin-bottom:12px}
+.ai-setup-title{font-size:15px;font-weight:700;color:var(--text1);margin-bottom:6px}
+.ai-setup-desc{font-size:13px;color:var(--text3);line-height:1.5;margin-bottom:16px}
 </style>
 </head>
 <body>
@@ -142,7 +195,7 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
     <div class="subtitle" id="top-subtitle">Quản lý Công việc</div>
   </div>
   <div class="actions">
-    <button class="icon-btn" onclick="syncGSheet()" title="Đồng bộ">
+    <button class="icon-btn" id="sync-btn" onclick="syncGSheet()" title="Đồng bộ Google Sheet">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
     </button>
     <button class="icon-btn" onclick="openAddNew()" title="Thêm công việc">
@@ -150,9 +203,13 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
     </button>
   </div>
 </div>
+
 <div class="sync-bar" id="syncBar" style="display:none">
-  <div class="sync-dot" id="syncDot"></div><span id="syncMsg">Đang đồng bộ...</span>
+  <div class="sync-dot" id="syncDot"></div>
+  <span id="syncMsg">Đang đồng bộ...</span>
+  <span class="sync-status" id="syncStatus"></span>
 </div>
+
 <div class="content">
   <div class="screen active" id="screen-manage">
     <div class="search-wrap">
@@ -169,10 +226,11 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
     </div>
     <div id="task-list" style="padding-top:6px"></div>
   </div>
+
   <div class="screen" id="screen-report">
     <div class="card" style="margin-top:14px">
       <div class="card-body">
-        <div style="font-size:13px;font-weight:700;color:var(--text1);margin-bottom:10px">📊 Kỳ báo cáo</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text1);margin-bottom:10px">Kỳ báo cáo</div>
         <div style="display:flex;gap:8px">
           <select class="form-control" id="report-period" onchange="renderReport()" style="flex:1">
             <option value="7">7 ngày qua</option>
@@ -182,21 +240,65 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
             <option value="180">6 tháng qua</option>
             <option value="365">1 năm</option>
           </select>
-          <button class="btn btn-outline btn-sm" onclick="exportReport()" style="width:auto;flex-shrink:0">📤 Xuất</button>
+          <button class="btn btn-outline btn-sm" onclick="exportReport()" style="width:auto;flex-shrink:0">Xuất báo cáo</button>
         </div>
       </div>
     </div>
     <div id="report-content"></div>
   </div>
+
+  <div class="screen" id="screen-settings">
+    <div class="card" style="margin-top:14px">
+      <div class="card-body">
+        <div style="font-size:14px;font-weight:700;margin-bottom:14px">Google Sheet Sync</div>
+        <div class="form-group">
+          <label class="form-label">GAS Web App URL</label>
+          <input class="form-control" id="cfg-gas" placeholder="https://script.google.com/macros/s/.../exec" type="url">
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-primary btn-sm" onclick="saveGasUrl()" style="flex:1">Lưu URL</button>
+          <button class="btn btn-ghost btn-sm" onclick="loadFromSheet()" style="flex:1">Tải từ Sheet</button>
+        </div>
+        <div id="gas-status" style="font-size:12px;color:var(--text3);margin-top:10px;text-align:center"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div style="font-size:14px;font-weight:700;margin-bottom:14px">AI Trợ lý — Claude</div>
+        <div class="form-group">
+          <label class="form-label">Anthropic API Key</label>
+          <input class="form-control" id="cfg-ai" placeholder="sk-ant-api03-..." type="password">
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:10px;line-height:1.5">
+          Lấy key tại <b>console.anthropic.com</b> → API Keys → Create Key.<br>
+          Model: <b>claude-sonnet-4-6</b>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="saveAiKey()">Lưu API Key</button>
+        <div id="ai-status" style="font-size:12px;color:var(--text3);margin-top:10px;text-align:center"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px">Dữ liệu</div>
+        <button class="btn btn-ghost btn-sm" onclick="exportData()" style="width:100%;margin-bottom:8px">Xuất backup JSON</button>
+        <button class="btn btn-danger btn-sm" onclick="clearData()" style="width:100%">Xóa toàn bộ dữ liệu</button>
+      </div>
+    </div>
+  </div>
 </div>
+
 <nav class="bottom-nav">
   <button class="nav-item active" id="nav-manage" onclick="showScreen('manage')">
     <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-    <span>Quản lý công việc</span>
+    <span>Công việc</span>
   </button>
   <button class="nav-item" id="nav-report" onclick="showScreen('report')">
     <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
     <span>Báo cáo</span>
+  </button>
+  <button class="nav-item" id="nav-settings" onclick="showScreen('settings')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    <span>Cài đặt</span>
   </button>
 </nav>
 </div>
@@ -206,11 +308,11 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
   <div class="modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-hdr">
-      <div class="modal-title" id="add-modal-title">📋 Thêm Công việc mới</div>
+      <div class="modal-title" id="add-modal-title">Thêm Công việc mới</div>
       <button class="modal-close" onclick="closeAddModalDirect()">✕</button>
     </div>
     <div class="modal-body">
-      <div id="edit-banner" class="edit-banner" style="display:none">✏️ Đang chỉnh sửa thông tin công việc</div>
+      <div id="edit-banner" class="edit-banner" style="display:none">Đang chỉnh sửa thông tin công việc</div>
       <div class="form-group">
         <label class="form-label">Tên công việc <span class="req">*</span></label>
         <input class="form-control" id="f-name" placeholder="Nhập tên công việc..." type="text">
@@ -253,7 +355,7 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
         </div>
         <div class="file-list" id="file-list"></div>
       </div>
-      <button class="btn btn-primary" id="save-btn" onclick="saveTask()">✓  Lưu Công việc</button>
+      <button class="btn btn-primary" id="save-btn" onclick="saveTask()">Lưu Công việc</button>
     </div>
   </div>
 </div>
@@ -270,6 +372,25 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
   </div>
 </div>
 
+<!-- AI CHAT -->
+<button class="ai-fab" id="ai-fab" onclick="openAI()" title="Trợ lý AI">✦</button>
+<div class="ai-modal" id="aiModal">
+  <div class="ai-hdr">
+    <div class="ai-hdr-icon">✦</div>
+    <div class="ai-hdr-text">
+      <div class="at">Trợ lý PWork AI</div>
+      <div class="as">Claude Sonnet · Hỏi bất cứ điều gì về công việc</div>
+    </div>
+    <button class="ai-close" onclick="closeAI()">✕</button>
+  </div>
+  <div class="ai-msgs" id="ai-msgs"></div>
+  <div class="ai-chips" id="ai-chips"></div>
+  <div class="ai-input-row">
+    <input class="ai-input" id="ai-input" placeholder="Hỏi về tiến độ, deadline, tổng hợp..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}">
+    <button class="ai-send" id="ai-send" onclick="sendAI()">↑</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 <div class="success-overlay" id="successOverlay">
   <div class="success-box">
@@ -280,11 +401,23 @@ input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22p
 </div>
 
 <script>
+// ============================================================
+// CONFIG — lưu trong localStorage, thay qua màn hình Cài đặt
+// ============================================================
+let GAS_URL  = localStorage.getItem('pwork_gas_url')  || '';
+let CLAUDE_KEY = localStorage.getItem('pwork_ai_key') || '';
+
+// ============================================================
+// DATA
+// ============================================================
 let tasks = JSON.parse(localStorage.getItem('pwork_tasks')||'[]');
 let attachedFiles=[], currentFilter='all', currentTaskId=null, editingTaskId=null, modalReportFiles=[];
-const GAS_URL='';
+let syncTimeout=null; // debounce auto-sync
 
-function save(){localStorage.setItem('pwork_tasks',JSON.stringify(tasks));}
+function save(){
+  localStorage.setItem('pwork_tasks',JSON.stringify(tasks));
+  scheduleAutoSync(); // auto-sync on every data change
+}
 function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>');}
 function fmtDate(iso){return iso?new Date(iso).toLocaleDateString('vi-VN'):'';}
@@ -293,6 +426,9 @@ function fmtSz(b){return b<1024?b+'B':b<1048576?(b/1024).toFixed(0)+'KB':(b/1048
 function bc(p){return p>=100?'p100':p>=66?'p75':p>=33?'p50':p>0?'p25':'p0';}
 function plblColor(p){return p>15?'#fff':'var(--text3)';}
 
+// ============================================================
+// SCREENS
+// ============================================================
 function showScreen(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
@@ -300,6 +436,7 @@ function showScreen(name){
   const nav=document.getElementById('nav-'+name);if(nav)nav.classList.add('active');
   if(name==='manage'){renderList();updateSubtitle();}
   if(name==='report')renderReport();
+  if(name==='settings')loadSettings();
 }
 
 function updateSubtitle(){
@@ -307,17 +444,61 @@ function updateSubtitle(){
   document.getElementById('top-subtitle').textContent=total?`${total} công việc · ${done} hoàn thành`:'Quản lý Công việc';
 }
 
+// ============================================================
+// SETTINGS
+// ============================================================
+function loadSettings(){
+  document.getElementById('cfg-gas').value=GAS_URL;
+  document.getElementById('cfg-ai').value=CLAUDE_KEY?'••••••••••••':'';
+  document.getElementById('gas-status').textContent=GAS_URL?'Đã kết nối: '+GAS_URL.slice(0,40)+'...':'Chưa cấu hình';
+  document.getElementById('ai-status').textContent=CLAUDE_KEY?'Claude API Key đã lưu':'Chưa có API Key';
+}
+function saveGasUrl(){
+  GAS_URL=document.getElementById('cfg-gas').value.trim();
+  localStorage.setItem('pwork_gas_url',GAS_URL);
+  document.getElementById('gas-status').textContent=GAS_URL?'Đã lưu!':'Đã xóa URL';
+  showToast('Đã lưu GAS URL');
+  updateSyncBtn();
+}
+function saveAiKey(){
+  const v=document.getElementById('cfg-ai').value.trim();
+  if(!v||v.includes('•')){showToast('Nhập key mới để thay đổi');return;}
+  CLAUDE_KEY=v;
+  localStorage.setItem('pwork_ai_key',CLAUDE_KEY);
+  document.getElementById('ai-status').textContent='Claude API Key đã lưu';
+  document.getElementById('cfg-ai').value='••••••••••••';
+  showToast('Đã lưu Claude API Key');
+}
+function updateSyncBtn(){
+  const btn=document.getElementById('sync-btn');
+  btn.style.opacity=GAS_URL?'1':'0.45';
+  btn.title=GAS_URL?'Đồng bộ Google Sheet':'Vào Cài đặt để cấu hình GAS URL';
+}
+function exportData(){
+  const blob=new Blob([JSON.stringify({tasks,exported:new Date().toISOString()},null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`pwork-backup-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(url);
+  showToast('Đã xuất backup JSON');
+}
+function clearData(){
+  if(!confirm('Xóa toàn bộ dữ liệu? Hành động này không thể hoàn tác.'))return;
+  tasks=[];save();renderList();updateSubtitle();
+  showToast('Đã xóa toàn bộ dữ liệu');
+}
+
+// ============================================================
+// ADD / EDIT MODAL
+// ============================================================
 function openAddNew(){
   editingTaskId=null;attachedFiles=[];
   ['f-name','f-content','f-location','f-leader','f-coworker','f-notes'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-deadline').value='';
   document.getElementById('file-list').innerHTML='';
-  document.getElementById('add-modal-title').textContent='📋 Thêm Công việc mới';
-  document.getElementById('save-btn').textContent='✓  Lưu Công việc';
+  document.getElementById('add-modal-title').textContent='Thêm Công việc mới';
+  document.getElementById('save-btn').textContent='Lưu Công việc';
   document.getElementById('edit-banner').style.display='none';
   document.getElementById('addModal').classList.add('open');
 }
-
 function openEditTask(id){
   const t=tasks.find(x=>x.id===id);if(!t)return;
   editingTaskId=id;attachedFiles=[...(t.files||[])];
@@ -329,16 +510,18 @@ function openEditTask(id){
   document.getElementById('f-coworker').value=t.coworker||'';
   document.getElementById('f-notes').value=t.notes||'';
   renderFileList();
-  document.getElementById('add-modal-title').textContent='✏️ Chỉnh sửa Công việc';
-  document.getElementById('save-btn').textContent='✓  Lưu chỉnh sửa';
+  document.getElementById('add-modal-title').textContent='Chỉnh sửa Công việc';
+  document.getElementById('save-btn').textContent='Lưu chỉnh sửa';
   document.getElementById('edit-banner').style.display='flex';
   document.getElementById('taskModal').classList.remove('open');
   setTimeout(()=>document.getElementById('addModal').classList.add('open'),180);
 }
-
 function closeAddModal(e){if(e.target===document.getElementById('addModal'))closeAddModalDirect();}
 function closeAddModalDirect(){document.getElementById('addModal').classList.remove('open');editingTaskId=null;attachedFiles=[];}
 
+// ============================================================
+// FILES
+// ============================================================
 function handleFiles(input){
   Array.from(input.files).forEach(f=>{
     const r=new FileReader();
@@ -352,11 +535,14 @@ function renderFileList(){
 }
 function removeFile(i){attachedFiles.splice(i,1);renderFileList();}
 
+// ============================================================
+// SAVE / EDIT TASK — auto-sync on save
+// ============================================================
 function saveTask(){
   const name=document.getElementById('f-name').value.trim();
   const deadline=document.getElementById('f-deadline').value;
-  if(!name){showToast('⚠️ Vui lòng nhập tên công việc');return;}
-  if(!deadline){showToast('⚠️ Vui lòng chọn deadline');return;}
+  if(!name){showToast('Vui lòng nhập tên công việc');return;}
+  if(!deadline){showToast('Vui lòng chọn deadline');return;}
 
   if(editingTaskId){
     const t=tasks.find(x=>x.id===editingTaskId);if(!t)return;
@@ -364,21 +550,31 @@ function saveTask(){
     t.location=document.getElementById('f-location').value.trim();t.deadline=deadline;
     t.leader=document.getElementById('f-leader').value.trim();t.coworker=document.getElementById('f-coworker').value.trim();
     t.notes=document.getElementById('f-notes').value.trim();t.files=[...attachedFiles];
-    save();closeAddModalDirect();renderList();
-    showSuccess('✅','Đã cập nhật thông tin!',name);
+    save(); // triggers auto-sync
+    closeAddModalDirect();renderList();
+    showSuccess('✅','Đã cập nhật!',name);
   } else {
-    const task={id:genId(),name,content:document.getElementById('f-content').value.trim(),
-      location:document.getElementById('f-location').value.trim(),leader:document.getElementById('f-leader').value.trim(),
-      coworker:document.getElementById('f-coworker').value.trim(),notes:document.getElementById('f-notes').value.trim(),
-      deadline,createdAt:new Date().toISOString(),progress:0,deployed:'',plan:'',report:'',
+    const task={id:genId(),name,
+      content:document.getElementById('f-content').value.trim(),
+      location:document.getElementById('f-location').value.trim(),
+      leader:document.getElementById('f-leader').value.trim(),
+      coworker:document.getElementById('f-coworker').value.trim(),
+      notes:document.getElementById('f-notes').value.trim(),
+      deadline,createdAt:new Date().toISOString(),
+      progress:0,deployed:'',plan:'',report:'',
       reportFiles:[],completedAt:null,files:[...attachedFiles]};
-    tasks.unshift(task);save();attachedFiles=[];
+    tasks.unshift(task);
+    save(); // triggers auto-sync
+    attachedFiles=[];
     closeAddModalDirect();renderList();updateSubtitle();
     showSuccess('🎉','Đã tạo công việc!',name);
     showScreen('manage');
   }
 }
 
+// ============================================================
+// STATUS & LIST
+// ============================================================
 function getStatus(t){
   if(t.completedAt||t.progress===100)return'done';
   if(!t.deadline)return t.progress>0?'inprogress':'new';
@@ -388,7 +584,6 @@ function getStatus(t){
   if(t.progress>0)return'inprogress';
   return'new';
 }
-
 function setFilter(f,el){currentFilter=f;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderList();}
 
 function renderList(){
@@ -418,7 +613,7 @@ function renderList(){
       <div class="tc-chips">
         ${t.deadline?`<span class="chip ${s==='overdue'?'chip-red':'chip-gray'}">📅 ${fmtDate(t.deadline)}</span>`:''}
         ${(t.files||[]).length?`<span class="chip chip-blue">📎 ${t.files.length} file</span>`:''}
-        ${t.completedAt?`<span class="chip chip-green">✅ ${fmtDate(t.completedAt)}</span>`:''}
+        ${t.completedAt?`<span class="chip chip-green">Hoàn thành ${fmtDate(t.completedAt)}</span>`:''}
       </div>
       <div class="progress-wrap">
         <div class="progress-bar ${bc(p)}" style="width:${p}%"></div>
@@ -428,6 +623,9 @@ function renderList(){
   }).join('');
 }
 
+// ============================================================
+// TASK DETAIL
+// ============================================================
 function openTask(id){
   const t=tasks.find(x=>x.id===id);if(!t)return;
   currentTaskId=id;modalReportFiles=[];
@@ -435,15 +633,14 @@ function openTask(id){
   const s=getStatus(t),p=t.progress||0;
   const sM={new:'s-new',inprogress:'s-prog',done:'s-done',overdue:'s-over'};
   const sL={new:'Chưa bắt đầu',inprogress:'Đang triển khai',done:'Hoàn thành',overdue:'Quá hạn'};
-
-  const existRF=(t.reportFiles||[]).map((f,i)=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span><a href="${f.data}" download="${f.name}" style="color:var(--blue);font-size:12px;text-decoration:none;flex-shrink:0">⬇️</a><button class="rmf" onclick="rmExRF(${i})">✕</button></div>`).join('');
-  const taskF=(t.files||[]).length?`<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">📎 Văn bản đính kèm</div>${t.files.map(f=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span><a href="${f.data}" download="${f.name}" style="color:var(--blue);font-size:12px;text-decoration:none;flex-shrink:0">⬇️</a></div>`).join('')}<div style="height:12px"></div>`:'';
+  const existRF=(t.reportFiles||[]).map((f,i)=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span><a href="${f.data||'#'}" download="${f.name}" style="color:var(--blue);font-size:12px;text-decoration:none;flex-shrink:0">Tải</a><button class="rmf" onclick="rmExRF(${i})">✕</button></div>`).join('');
+  const taskF=(t.files||[]).length?`<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">Văn bản đính kèm</div>${t.files.map(f=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span>${f.data?`<a href="${f.data}" download="${f.name}" style="color:var(--blue);font-size:12px;text-decoration:none;flex-shrink:0">Tải</a>`:f.driveUrl?`<a href="${f.driveUrl}" target="_blank" style="color:var(--blue);font-size:12px;text-decoration:none;flex-shrink:0">Drive</a>`:''}</div>`).join('')}<div style="height:12px"></div>`:'';
 
   document.getElementById('modal-body').innerHTML=`
     <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:13px">
       <span class="sbadge ${sM[s]}">${sL[s]}</span>
-      ${t.deadline?`<span class="chip chip-gray">📅 ${fmtDate(t.deadline)}</span>`:''}
-      ${t.completedAt?`<span class="chip chip-green">✅ HT: ${fmtDate(t.completedAt)}</span>`:''}
+      ${t.deadline?`<span class="chip chip-gray">Hạn: ${fmtDate(t.deadline)}</span>`:''}
+      ${t.completedAt?`<span class="chip chip-green">Hoàn thành: ${fmtDate(t.completedAt)}</span>`:''}
     </div>
     ${t.content?`<div style="font-size:13px;color:var(--text2);background:var(--bg);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:13px;line-height:1.6;border:1px solid var(--border)">${esc(t.content)}</div>`:''}
     <div class="meta-grid">
@@ -454,7 +651,7 @@ function openTask(id){
     </div>
     ${taskF}
     <div class="acc">
-      <div class="acc-hdr" onclick="toggleAcc('progress')"><span>📈 Cập nhật tiến độ</span><span class="acc-arrow open" id="arr-progress">▼</span></div>
+      <div class="acc-hdr" onclick="toggleAcc('progress')"><span>Cập nhật tiến độ</span><span class="acc-arrow open" id="arr-progress">▼</span></div>
       <div class="acc-body open" id="body-progress">
         <div class="slider-val" id="slider-val">${p}%</div>
         <input type="range" class="slider" min="0" max="100" step="5" value="${p}" id="progress-slider" oninput="updateSlider(this.value)">
@@ -463,29 +660,29 @@ function openTask(id){
       </div>
     </div>
     <div class="acc">
-      <div class="acc-hdr" onclick="toggleAcc('deployed')"><span>✅ Đã triển khai</span><span class="acc-arrow" id="arr-deployed">▼</span></div>
+      <div class="acc-hdr" onclick="toggleAcc('deployed')"><span>Đã triển khai</span><span class="acc-arrow" id="arr-deployed">▼</span></div>
       <div class="acc-body" id="body-deployed"><textarea class="form-control" id="modal-deployed" rows="3" placeholder="Những việc đã thực hiện...">${t.deployed||''}</textarea></div>
     </div>
     <div class="acc">
-      <div class="acc-hdr" onclick="toggleAcc('plan')"><span>📅 Kế hoạch tiếp theo</span><span class="acc-arrow" id="arr-plan">▼</span></div>
+      <div class="acc-hdr" onclick="toggleAcc('plan')"><span>Kế hoạch tiếp theo</span><span class="acc-arrow" id="arr-plan">▼</span></div>
       <div class="acc-body" id="body-plan"><textarea class="form-control" id="modal-plan" rows="3" placeholder="Kế hoạch triển khai sắp tới...">${t.plan||''}</textarea></div>
     </div>
     <div class="acc">
-      <div class="acc-hdr" onclick="toggleAcc('report-acc')"><span>📋 Báo cáo kết quả</span><span class="acc-arrow" id="arr-report-acc">▼</span></div>
+      <div class="acc-hdr" onclick="toggleAcc('report-acc')"><span>Báo cáo kết quả</span><span class="acc-arrow" id="arr-report-acc">▼</span></div>
       <div class="acc-body" id="body-report-acc">
         <textarea class="form-control" id="modal-report" rows="3" placeholder="Kết quả đạt được..." style="margin-bottom:10px">${t.report||''}</textarea>
         <div class="fupload" style="padding:10px 12px">
           <input type="file" id="modal-rfile" multiple onchange="handleRF(this)">
-          <div class="fz-lbl" style="font-size:12px">📎 Đính kèm file báo cáo</div>
+          <div class="fz-lbl" style="font-size:12px">Đính kèm file báo cáo</div>
         </div>
         <div class="file-list" id="report-file-list" style="margin-top:6px">${existRF}</div>
       </div>
     </div>
-    ${t.notes?`<div style="font-size:12px;color:var(--text3);padding:6px 0;margin-bottom:4px">💬 ${esc(t.notes)}</div>`:''}
+    ${t.notes?`<div style="font-size:12px;color:var(--text3);padding:6px 0;margin-bottom:4px">Ghi chú: ${esc(t.notes)}</div>`:''}
     <div style="display:flex;gap:8px;margin-top:14px">
-      <button class="btn btn-primary" onclick="updateTask()" style="flex:3">💾 Cập nhật tiến độ</button>
-      <button class="btn btn-outline btn-sm" onclick="openEditTask('${t.id}')" style="flex:1;width:auto">✏️</button>
-      <button class="btn btn-danger btn-sm" onclick="deleteTask('${t.id}')" style="flex:1;width:auto">🗑️</button>
+      <button class="btn btn-primary" onclick="updateTask()" style="flex:3">Cập nhật tiến độ</button>
+      <button class="btn btn-outline btn-sm" onclick="openEditTask('${t.id}')" style="flex:1;width:auto">Sửa</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteTask('${t.id}')" style="flex:1;width:auto">Xóa</button>
     </div>`;
   document.getElementById('taskModal').classList.add('open');
 }
@@ -508,9 +705,9 @@ function updateTask(){
   if(modalReportFiles.length){t.reportFiles=[...(t.reportFiles||[]),...modalReportFiles];modalReportFiles=[];}
   if((progress===100||t.report.trim())&&!t.completedAt){t.completedAt=new Date().toISOString();}
   else if(progress<100&&!t.report.trim()){t.completedAt=null;}
-  save();closeTaskModalDirect();renderList();updateSubtitle();
-  showSuccess('💾','Đã cập nhật!',`Tiến độ: ${progress}%`);
-  autoSync(t);
+  save(); // triggers auto-sync
+  closeTaskModalDirect();renderList();updateSubtitle();
+  showSuccess('✅','Đã cập nhật!',`Tiến độ: ${progress}%`);
 }
 
 function handleRF(input){
@@ -521,7 +718,7 @@ function handleRF(input){
 function renderRFL(){
   const list=document.getElementById('report-file-list');if(!list)return;
   const t=tasks.find(x=>x.id===currentTaskId);
-  const ex=(t?.reportFiles||[]).map((f,i)=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span><a href="${f.data}" download="${f.name}" style="color:var(--blue);font-size:12px;text-decoration:none;flex-shrink:0">⬇️</a><button class="rmf" onclick="rmExRF(${i})">✕</button></div>`).join('');
+  const ex=(t?.reportFiles||[]).map((f,i)=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span><button class="rmf" onclick="rmExRF(${i})">✕</button></div>`).join('');
   const nw=modalReportFiles.map((f,i)=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span><button class="rmf" onclick="rmNRF(${i})">✕</button></div>`).join('');
   list.innerHTML=ex+nw;
 }
@@ -530,8 +727,11 @@ function rmNRF(i){modalReportFiles.splice(i,1);renderRFL();}
 
 function deleteTask(id){
   if(!confirm('Xóa công việc này?'))return;
-  tasks=tasks.filter(x=>x.id!==id);save();closeTaskModalDirect();renderList();updateSubtitle();
-  showToast('🗑️ Đã xóa công việc');
+  tasks=tasks.filter(x=>x.id!==id);
+  save(); // triggers auto-sync + syncDeleteTask inside scheduleAutoSync
+  closeTaskModalDirect();renderList();updateSubtitle();
+  syncDeleteTask(id);
+  showToast('Đã xóa công việc');
 }
 
 function toggleAcc(name){
@@ -539,10 +739,12 @@ function toggleAcc(name){
   if(!body||!arr)return;
   body.classList.toggle('open');arr.classList.toggle('open');
 }
-
 function closeTaskModal(e){if(e.target===document.getElementById('taskModal'))closeTaskModalDirect();}
 function closeTaskModalDirect(){document.getElementById('taskModal').classList.remove('open');currentTaskId=null;modalReportFiles=[];}
 
+// ============================================================
+// REPORT
+// ============================================================
 function renderReport(){
   const days=parseInt(document.getElementById('report-period').value);
   const since=new Date(Date.now()-days*86400000);
@@ -565,14 +767,12 @@ function renderReport(){
         <div class="progress-wrap"><div class="progress-bar ${bc(avg)}" style="width:${avg}%"></div><div class="plbl" style="color:${plblColor(avg)}">${avg}%</div></div>
       </div>
     </div>
-    ${inprog.length?`<div class="section-title">🔄 Đang triển khai (${inprog.length})</div>${inprog.map(rCard).join('')}`:''}
-    ${overdue.length?`<div class="section-title" style="color:var(--red)">⚠️ Quá hạn (${overdue.length})</div>${overdue.map(rCard).join('')}`:''}
-    ${done.length?`<div class="section-title" style="color:var(--green)">✅ Hoàn thành (${done.length})</div>${done.map(rCard).join('')}`:''}
+    ${inprog.length?`<div class="section-title">Đang triển khai (${inprog.length})</div>${inprog.map(rCard).join('')}`:''}
+    ${overdue.length?`<div class="section-title" style="color:var(--red)">Quá hạn (${overdue.length})</div>${overdue.map(rCard).join('')}`:''}
+    ${done.length?`<div class="section-title" style="color:var(--green)">Hoàn thành (${done.length})</div>${done.map(rCard).join('')}`:''}
     ${!relevant.length?'<div class="empty-state"><div class="empty-icon">📊</div><div class="empty-title">Chưa có dữ liệu</div><div class="empty-desc">Thêm công việc để xem báo cáo</div></div>':''}`;
 }
-
 function rCard(t){const p=t.progress||0;return`<div class="task-card" onclick="openTask('${t.id}')"><div style="font-size:13px;font-weight:600;color:var(--text1);margin-bottom:6px">${esc(t.name)}</div>${t.leader?`<div style="font-size:11px;color:var(--text3);margin-bottom:6px">👤 ${esc(t.leader)}${t.location?' · 📍'+esc(t.location):''}</div>`:''}<div class="progress-wrap"><div class="progress-bar ${bc(p)}" style="width:${p}%"></div><div class="plbl" style="color:${plblColor(p)}">${p}%</div></div>${t.deployed?`<div style="font-size:11px;color:var(--text2);margin-top:7px;line-height:1.4">✅ ${esc(t.deployed.substring(0,100))}${t.deployed.length>100?'...':''}</div>`:''}</div>`;}
-
 function exportReport(){
   const days=parseInt(document.getElementById('report-period').value);
   const since=new Date(Date.now()-days*86400000);
@@ -584,40 +784,266 @@ function exportReport(){
   txt+=`=== HOÀN THÀNH ===\n`;
   done.forEach((t,i)=>{txt+=`${i+1}. ${t.name} — HT: ${t.completedAt?fmtDate(t.completedAt):'N/A'}\n`;if(t.report)txt+=`   Kết quả: ${t.report}\n`;txt+='\n';});
   const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download=`pwork-baocao-${new Date().toISOString().slice(0,10)}.txt`;a.click();URL.revokeObjectURL(url);
-  showToast('📤 Đã xuất báo cáo');
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`pwork-baocao-${new Date().toISOString().slice(0,10)}.txt`;a.click();URL.revokeObjectURL(url);
+  showToast('Đã xuất báo cáo');
 }
 
-let sTimer;
+// ============================================================
+// SYNC ENGINE
+// ============================================================
+function getPendingFiles(t){
+  const p=[];
+  (t.files||[]).forEach(f=>{if(f.data&&!f.driveUrl)p.push({taskId:t.id,name:f.name,type:f.type,data:f.data,isReport:false});});
+  (t.reportFiles||[]).forEach(f=>{if(f.data&&!f.driveUrl)p.push({taskId:t.id,name:f.name,type:f.type,data:f.data,isReport:true});});
+  return p;
+}
+function markFilesUploaded(results){
+  results.forEach(r=>{
+    if(r.status!=='ok')return;
+    const t=tasks.find(x=>x.id===r.taskId);if(!t)return;
+    const allF=[...(t.files||[]),...(t.reportFiles||[])];
+    const f=allF.find(x=>x.name===r.fileName&&!x.driveUrl);
+    if(f){f.driveUrl=r.viewUrl;delete f.data;}
+  });
+  localStorage.setItem('pwork_tasks',JSON.stringify(tasks)); // save without triggering another sync
+}
+function taskPayload(t){
+  return{id:t.id,name:t.name,content:t.content,location:t.location,leader:t.leader,coworker:t.coworker,deadline:t.deadline,createdAt:t.createdAt,progress:t.progress,deployed:t.deployed,plan:t.plan,report:t.report,completedAt:t.completedAt,notes:t.notes,fileCount:(t.files||[]).length+(t.reportFiles||[]).length};
+}
+async function gasPost(payload){
+  const res=await fetch(GAS_URL,{method:'POST',body:JSON.stringify(payload)});
+  const data=await res.json();
+  if(data.status==='error')throw new Error(data.message);
+  return data;
+}
+
+// AUTO-SYNC: debounce 3s sau mỗi thay đổi
+function scheduleAutoSync(){
+  if(!GAS_URL)return;
+  clearTimeout(syncTimeout);
+  syncTimeout=setTimeout(()=>runAutoSync(),3000);
+  setSyncStatus('Chờ đồng bộ...',false);
+}
+
+async function runAutoSync(){
+  if(!GAS_URL)return;
+  setSyncStatus('Đang đồng bộ...',true);
+  try{
+    const pendingFiles=[];
+    tasks.forEach(t=>pendingFiles.push(...getPendingFiles(t)));
+    const payload=tasks.map(taskPayload);
+    const res=await gasPost({action:'syncAll',tasks:payload,files:pendingFiles.length<=5?pendingFiles:[]});
+    if(res.results)markFilesUploaded(res.results);
+    // Upload remaining files if any
+    if(pendingFiles.length>5){
+      for(let i=0;i<pendingFiles.length;i+=5){
+        const batch=pendingFiles.slice(i,i+5);
+        const r2=await gasPost({action:'uploadFiles',files:batch});
+        if(r2.results)markFilesUploaded(r2.results);
+      }
+    }
+    setSyncStatus(`Đã đồng bộ ${new Date().toLocaleTimeString('vi-VN')}`,false,true);
+  }catch(err){
+    setSyncStatus('Lỗi đồng bộ: '+err.message.slice(0,40),false,false,true);
+  }
+}
+
+// MANUAL SYNC (nút trên header)
+async function syncGSheet(){
+  if(!GAS_URL){showScreen('settings');showToast('Cấu hình GAS URL trong Cài đặt');return;}
+  clearTimeout(syncTimeout);
+  await runAutoSync();
+}
+
+async function syncDeleteTask(id){
+  if(!GAS_URL)return;
+  try{await gasPost({action:'deleteTask',id});}catch(e){}
+}
+
+async function loadFromSheet(){
+  if(!GAS_URL){showToast('Chưa cấu hình GAS URL');return;}
+  if(!confirm('Tải dữ liệu từ Google Sheet về?\nDữ liệu local hiện tại sẽ bị ghi đè.'))return;
+  setSyncStatus('Đang tải từ Sheet...',true);
+  try{
+    const res=await fetch(GAS_URL+'?action=getTasks');
+    const data=await res.json();
+    if(data.status==='ok'&&data.tasks){
+      tasks=data.tasks.map(t=>({...t,progress:parseInt(t.progress)||0,files:[],reportFiles:[]}));
+      localStorage.setItem('pwork_tasks',JSON.stringify(tasks));
+      renderList();updateSubtitle();
+      setSyncStatus(`Đã tải ${tasks.length} công việc`,false,true);
+      showToast(`Đã tải ${tasks.length} công việc từ Sheet`);
+    }
+  }catch(err){setSyncStatus('Lỗi: '+err.message.slice(0,40),false,false,true);}
+}
+
+// Sync status UI (small bar)
+function setSyncStatus(msg,loading,ok,err){
+  const bar=document.getElementById('syncBar');
+  const dot=document.getElementById('syncDot');
+  const msgEl=document.getElementById('syncMsg');
+  const stat=document.getElementById('syncStatus');
+  if(!GAS_URL){bar.style.display='none';return;}
+  bar.style.display='flex';
+  msgEl.textContent=GAS_URL?'Google Sheet kết nối':'';
+  stat.textContent=msg;
+  if(loading){dot.classList.add('pulsing');dot.style.background='var(--blue)';}
+  else if(ok){dot.classList.remove('pulsing');dot.style.background='#22C55E';}
+  else if(err){dot.classList.remove('pulsing');dot.style.background='var(--red)';}
+  else{dot.classList.remove('pulsing');dot.style.background='var(--blue)';}
+}
+
+// ============================================================
+// AI CHATBOT — Claude (Anthropic API)
+// ============================================================
+let aiHistory=[];
+
+function openAI(){
+  document.getElementById('aiModal').classList.add('open');
+  if(!aiHistory.length) initAIChat();
+}
+function closeAI(){document.getElementById('aiModal').classList.remove('open');}
+
+function initAIChat(){
+  const msgs=document.getElementById('ai-msgs');
+  msgs.innerHTML='';
+  addBotMsg('Xin chào! Tôi là trợ lý PWork AI (Claude). Bạn có thể hỏi tôi về:\n• Tổng hợp tiến độ công việc\n• Công việc sắp đến hạn\n• Tìm kiếm theo người chủ trì\n• Tư vấn kế hoạch');
+  renderAIChips();
+
+  if(!CLAUDE_KEY){
+    addBotMsg('Chưa có Anthropic API Key. Vào Cài đặt → AI Trợ lý → nhập key từ console.anthropic.com');
+  }
+}
+
+const AI_SUGGESTIONS=[
+  'Tóm tắt tiến độ tuần này',
+  'Công việc nào sắp đến hạn?',
+  'Công việc nào quá hạn?',
+  'Ai đang chủ trì nhiều việc nhất?',
+  'Tổng hợp các việc hoàn thành tháng này',
+  'Công việc nào tiến độ thấp nhất?',
+];
+
+function renderAIChips(){
+  const el=document.getElementById('ai-chips');
+  el.innerHTML=AI_SUGGESTIONS.map(s=>`<button class="ai-chip" onclick="askAI('${s}')">${s}</button>`).join('');
+}
+
+function addUserMsg(text){
+  const el=document.getElementById('ai-msgs');
+  const div=document.createElement('div');
+  div.className='ai-msg user';div.textContent=text;
+  el.appendChild(div);el.scrollTop=el.scrollHeight;
+}
+function addBotMsg(text,thinking=false){
+  const el=document.getElementById('ai-msgs');
+  const div=document.createElement('div');
+  div.className='ai-msg bot'+(thinking?' thinking':'');
+  div.innerHTML=text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  el.appendChild(div);el.scrollTop=el.scrollHeight;
+  return div;
+}
+
+function buildDataContext(){
+  const now=new Date();now.setHours(0,0,0,0);
+  const summary=tasks.map(t=>{
+    const s=getStatus(t);
+    const dl=t.deadline?new Date(t.deadline):null;
+    const daysLeft=dl?Math.ceil((dl-now)/(86400000)):null;
+    return{
+      id:t.id,name:t.name,leader:t.leader||'',location:t.location||'',
+      progress:t.progress||0,status:s,
+      deadline:t.deadline||'',daysLeft,
+      deployed:t.deployed||'',plan:t.plan||'',
+      createdAt:t.createdAt,completedAt:t.completedAt||''
+    };
+  });
+  return`Dữ liệu công việc hiện tại (${tasks.length} công việc, ngày ${now.toLocaleDateString('vi-VN')}):\n${JSON.stringify(summary,null,1)}`;
+}
+
+async function askAI(text){
+  document.getElementById('ai-input').value=text;
+  await sendAI();
+}
+
+async function sendAI(){
+  const input=document.getElementById('ai-input');
+  const text=input.value.trim();
+  if(!text)return;
+
+  if(!CLAUDE_KEY){
+    addBotMsg('Chưa có Anthropic API Key. Vào Cài đặt → AI Trợ lý để nhập key.');
+    return;
+  }
+
+  input.value='';
+  addUserMsg(text);
+  const thinkEl=addBotMsg('Đang phân tích...', true);
+  document.getElementById('ai-send').disabled=true;
+  document.getElementById('ai-chips').style.display='none';
+
+  // Build Anthropic messages array (giữ 6 lượt gần nhất)
+  const messages=[...aiHistory,{role:'user',content:text}];
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':CLAUDE_KEY,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1024,
+        system:`Bạn là trợ lý quản lý công việc tên PWork AI, phục vụ kỹ sư VNPT-NET. Trả lời ngắn gọn bằng tiếng Việt. Dùng bullet points khi liệt kê. Dùng **text** để in đậm điểm quan trọng. Tối đa 300 từ.\n\n${buildDataContext()}`,
+        messages
+      })
+    });
+    const data=await res.json();
+    if(data.type==='error'||data.error){
+      thinkEl.className='ai-msg bot';
+      thinkEl.textContent='Lỗi: '+(data.error?.message||data.message||JSON.stringify(data)).slice(0,150);
+    } else {
+      const reply=data.content?.[0]?.text||'Không có phản hồi';
+      thinkEl.className='ai-msg bot';
+      thinkEl.innerHTML=reply.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+      aiHistory.push({role:'user',content:text},{role:'assistant',content:reply});
+      if(aiHistory.length>12)aiHistory=aiHistory.slice(-12);
+      document.getElementById('ai-msgs').scrollTop=document.getElementById('ai-msgs').scrollHeight;
+    }
+  }catch(err){
+    thinkEl.className='ai-msg bot';
+    thinkEl.textContent='Lỗi kết nối: '+err.message;
+  }
+
+  document.getElementById('ai-send').disabled=false;
+  document.getElementById('ai-chips').style.display='flex';
+}
+
+// ============================================================
+// TOAST + SUCCESS
+// ============================================================
+let sTimer,tTimer;
 function showSuccess(icon,title,sub){
   document.getElementById('sIcon').textContent=icon;
   document.getElementById('sTitle').textContent=title;
   document.getElementById('sSub').textContent=sub||'';
-  const ov=document.getElementById('successOverlay');
-  ov.classList.add('show');
-  clearTimeout(sTimer);
-  sTimer=setTimeout(()=>ov.classList.remove('show'),1600);
+  const ov=document.getElementById('successOverlay');ov.classList.add('show');
+  clearTimeout(sTimer);sTimer=setTimeout(()=>ov.classList.remove('show'),1600);
+}
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(tTimer);tTimer=setTimeout(()=>t.classList.remove('show'),2200);
 }
 
-let tTimer;
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(tTimer);tTimer=setTimeout(()=>t.classList.remove('show'),2200);}
-
-function syncGSheet(){
-  if(!GAS_URL){showToast('⚙️ Chưa cấu hình GAS URL');return;}
-  const bar=document.getElementById('syncBar');
-  document.getElementById('syncMsg').textContent='Đang đồng bộ Google Sheet...';
-  document.getElementById('syncDot').classList.add('pulsing');
-  bar.style.display='flex';
-  const payload=tasks.map(t=>({id:t.id,name:t.name,content:t.content,location:t.location,leader:t.leader,coworker:t.coworker,deadline:t.deadline,createdAt:t.createdAt,progress:t.progress,deployed:t.deployed,plan:t.plan,report:t.report,completedAt:t.completedAt,notes:t.notes,fileCount:(t.files||[]).length+(t.reportFiles||[]).length}));
-  fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'syncAll',tasks:payload})})
-    .then(r=>r.json()).then(()=>hideSyncBar('✅ Đồng bộ thành công!'))
-    .catch(()=>hideSyncBar('❌ Lỗi kết nối'));
-}
-function autoSync(t){if(!GAS_URL)return;fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'updateTask',task:{id:t.id,name:t.name,progress:t.progress,deployed:t.deployed,plan:t.plan,report:t.report,completedAt:t.completedAt}})}).catch(()=>{});}
-function hideSyncBar(msg){document.getElementById('syncMsg').textContent=msg;document.getElementById('syncDot').classList.remove('pulsing');setTimeout(()=>document.getElementById('syncBar').style.display='none',2500);showToast(msg);}
-
+// ============================================================
+// INIT
+// ============================================================
 showScreen('manage');
+updateSyncBtn();
+if(GAS_URL)setSyncStatus('Sẵn sàng',false,true);
 </script>
 <script>
 let dp;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;});
