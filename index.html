@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1565C0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PWork">
+<title>PWork — Quản lý Công việc</title>
+<link rel="manifest" href="manifest.json">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --blue:#1565C0;--blue-mid:#1976D2;--blue-light:#E3F0FF;
+  --navy:#0D1B2A;
+  --green:#15803D;--green-light:#F0FDF4;
+  --orange:#C2410C;--orange-light:#FFF7ED;
+  --red:#B91C1C;--red-light:#FEF2F2;
+  --white:#fff;
+  --text1:#111827;--text2:#374151;--text3:#6B7280;
+  --border:#E5E7EB;--border2:#D1D5DB;
+  --bg:#F9FAFB;
+  --radius:14px;--radius-sm:9px;
+  --safe-bottom:env(safe-area-inset-bottom,0px)
+}
+html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;color:var(--text1);overscroll-behavior:none;-webkit-font-smoothing:antialiased}
+#app{display:flex;flex-direction:column;height:100%;max-width:480px;margin:0 auto}
+.top-bar{background:var(--blue);color:#fff;padding:14px 16px 13px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
+.logo{font-size:19px;font-weight:700;color:#fff}.logo b{color:#90CAF9}
+.subtitle{font-size:11px;opacity:.75;margin-top:1px}
+.actions{display:flex;gap:6px}
+.icon-btn{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;flex-shrink:0}
+.icon-btn:active{background:rgba(255,255,255,.28)}
+.content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 76px;background:var(--bg)}
+.screen{display:none;min-height:100%}.screen.active{display:block}
+.bottom-nav{background:var(--white);border-top:1px solid var(--border);display:flex;position:sticky;bottom:0;z-index:100;padding-bottom:var(--safe-bottom);flex-shrink:0}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9px 4px 7px;cursor:pointer;border:none;background:none;color:var(--text3);font-size:10px;font-weight:600;gap:3px;transition:color .15s}
+.nav-item.active{color:var(--blue)}
+.nav-item svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);margin:12px 14px;overflow:hidden}
+.card-body{padding:14px}
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text3);margin:16px 14px 6px}
+.form-group{margin-bottom:13px}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:5px}
+.req{color:var(--red)}
+.form-control{width:100%;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;color:var(--text1);background:var(--white);outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none;font-family:inherit}
+.form-control:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(21,101,192,.1)}
+textarea.form-control{resize:none;min-height:76px;line-height:1.55}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fupload{border:1.5px dashed var(--border2);border-radius:var(--radius-sm);padding:14px 12px;text-align:center;background:var(--bg);position:relative;cursor:pointer}
+.fupload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.fupload .fz-icon{font-size:22px;margin-bottom:4px}
+.fupload .fz-lbl{font-size:13px;color:var(--text2);font-weight:500}
+.fupload .fz-hint{font-size:11px;color:var(--text3);margin-top:2px}
+.file-list{margin-top:8px;display:flex;flex-direction:column;gap:5px}
+.file-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--blue-light);border-radius:var(--radius-sm);font-size:12px}
+.file-item .fn{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text1)}
+.file-item .fsz{color:var(--text3);font-size:11px;flex-shrink:0}
+.rmf{background:none;border:none;cursor:pointer;color:var(--text3);font-size:15px;padding:0 2px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 18px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:opacity .15s,transform .1s;width:100%;font-family:inherit}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-outline{background:var(--white);color:var(--blue);border:1.5px solid var(--blue)}
+.btn-danger{background:var(--red-light);color:var(--red);border:1px solid #FECACA}
+.btn-sm{padding:7px 14px;font-size:12px;width:auto}
+.progress-wrap{position:relative;height:20px;background:#F3F4F6;border-radius:50px;overflow:hidden;border:1px solid var(--border)}
+.progress-bar{height:100%;border-radius:50px;transition:width .4s ease}
+.plbl{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:700}
+.p0{background:#E5E7EB}.p25{background:#F59E0B}.p50{background:#3B82F6}.p75{background:#0EA5E9}.p100{background:#22C55E}
+input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:3px;background:var(--border);outline:none;cursor:pointer}
+input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--blue);cursor:pointer;border:3px solid var(--white);box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.slider-val{text-align:center;font-size:26px;font-weight:700;color:var(--blue);margin:8px 0 4px;line-height:1}
+.task-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);margin:6px 14px;padding:13px;cursor:pointer;transition:border-color .15s}
+.task-card:active{border-color:var(--blue)}
+.tc-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.tc-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.tc-title{font-size:14px;font-weight:600;line-height:1.35;color:var(--text1)}
+.tc-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.tc-chips{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.chip{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;white-space:nowrap;line-height:1.4}
+.chip-blue{background:var(--blue-light);color:var(--blue)}
+.chip-green{background:var(--green-light);color:var(--green)}
+.chip-red{background:var(--red-light);color:var(--red)}
+.chip-gray{background:#F3F4F6;color:var(--text2)}
+.sbadge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;flex-shrink:0}
+.s-new{background:#EFF6FF;color:#1D4ED8}.s-prog{background:#FFF7ED;color:#C2410C}
+.s-done{background:#F0FDF4;color:#15803D}.s-over{background:#FEF2F2;color:#B91C1C}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:flex-end}
+.modal-overlay.open{display:flex}
+.modal-sheet{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-width:480px;margin:0 auto;max-height:93vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:var(--safe-bottom)}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 4px}
+.modal-hdr{padding:8px 16px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:15px;font-weight:700;color:var(--text1)}
+.modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text3);padding:2px 4px;line-height:1}
+.modal-body{padding:16px}
+.acc{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:10px}
+.acc-hdr{padding:11px 13px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);background:var(--bg);user-select:none}
+.acc-arrow{font-size:11px;color:var(--text3);transition:transform .2s}
+.acc-arrow.open{transform:rotate(180deg)}
+.acc-body{padding:13px;border-top:1px solid var(--border);display:none}
+.acc-body.open{display:block}
+.search-wrap{padding:12px 14px 0}
+.search-inner{position:relative}
+.search-inner input{width:100%;padding:9px 12px 9px 36px;border:1px solid var(--border2);border-radius:var(--radius-sm);font-size:14px;background:var(--white);outline:none;color:var(--text1);font-family:inherit}
+.search-inner input:focus{border-color:var(--blue)}
+.si{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none}
+.filter-row{display:flex;gap:6px;padding:8px 14px 0;overflow-x:auto;scrollbar-width:none}
+.filter-row::-webkit-scrollbar{display:none}
+.filter-btn{padding:5px 13px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--white);color:var(--text2);white-space:nowrap;flex-shrink:0;transition:all .15s}
+.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 14px 10px}
+.rstat{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:13px;text-align:center}
+.rstat .rv{font-size:30px;font-weight:700;line-height:1}
+.rstat .rl{font-size:11px;color:var(--text3);margin-top:3px}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:52px 24px;text-align:center}
+.empty-icon{font-size:48px;margin-bottom:12px;opacity:.3}
+.empty-title{font-size:15px;font-weight:600;color:var(--text2);margin-bottom:5px}
+.empty-desc{font-size:13px;color:var(--text3);line-height:1.5}
+.toast{position:fixed;bottom:calc(72px + var(--safe-bottom) + 8px);left:50%;transform:translateX(-50%) translateY(16px);background:var(--navy);color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:500;opacity:0;transition:all .22s;z-index:400;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.success-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:500;pointer-events:none;opacity:0;transition:opacity .25s;background:rgba(0,0,0,0)}
+.success-overlay.show{opacity:1;background:rgba(0,0,0,.35);pointer-events:all}
+.success-box{background:var(--white);border-radius:20px;padding:28px 36px;text-align:center;border:1px solid var(--border)}
+.success-check{font-size:46px;margin-bottom:8px}
+.success-title{font-size:16px;font-weight:700;color:var(--text1)}
+.success-sub{font-size:12px;color:var(--text3);margin-top:4px;max-width:200px;line-height:1.4}
+.sync-bar{background:var(--blue-light);border-bottom:1px solid #BBDEFB;padding:7px 14px;font-size:12px;color:var(--blue);display:flex;align-items:center;gap:7px;flex-shrink:0}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}.pulsing{animation:pulse 1s infinite}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;margin-bottom:14px}
+.meta-item .ml{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text3);margin-bottom:2px}
+.meta-item .mv{font-weight:600;color:var(--text1)}
+.edit-banner{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:var(--radius-sm);padding:8px 12px;font-size:12px;color:#1D4ED8;display:flex;align-items:center;gap:6px;margin-bottom:13px;font-weight:500}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="top-bar">
+  <div>
+    <div class="logo">P<b>Work</b></div>
+    <div class="subtitle" id="top-subtitle">Quản lý Công việc</div>
+  </div>
+  <div class="actions">
+    <button class="icon-btn" onclick="syncGSheet()" title="Đồng bộ">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+    </button>
+    <button class="icon-btn" onclick="openAddNew()" title="Thêm công việc">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+  </div>
+</div>
+<div class="sync-bar" id="syncBar" style="display:none">
+  <div class="sync-dot" id="syncDot"></div><span id="syncMsg">Đang đồng bộ...</span>
+</div>
+<div class="content">
+  <div class="screen active" id="screen-manage">
+    <div class="search-wrap">
+      <div class="search-inner">
+        <span class="si">🔍</span>
+        <input type="search" id="search-input" placeholder="Tìm tên, người chủ trì, địa điểm..." oninput="renderList()">
+      </div>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="setFilter('all',this)">Tất cả</button>
+      <button class="filter-btn" onclick="setFilter('inprogress',this)">Đang triển khai</button>
+      <button class="filter-btn" onclick="setFilter('done',this)">Hoàn thành</button>
+      <button class="filter-btn" onclick="setFilter('overdue',this)">Quá hạn</button>
+    </div>
+    <div id="task-list" style="padding-top:6px"></div>
+  </div>
+  <div class="screen" id="screen-report">
+    <div class="card" style="margin-top:14px">
+      <div class="card-body">
+        <div style="font-size:13px;font-weight:700;color:var(--text1);margin-bottom:10px">📊 Kỳ báo cáo</div>
+        <div style="display:flex;gap:8px">
+          <select class="form-control" id="report-period" onchange="renderReport()" style="flex:1">
+            <option value="7">7 ngày qua</option>
+            <option value="30" selected>1 tháng qua</option>
+            <option value="60">2 tháng qua</option>
+            <option value="90">3 tháng qua</option>
+            <option value="180">6 tháng qua</option>
+            <option value="365">1 năm</option>
+          </select>
+          <button class="btn btn-outline btn-sm" onclick="exportReport()" style="width:auto;flex-shrink:0">📤 Xuất</button>
+        </div>
+      </div>
+    </div>
+    <div id="report-content"></div>
+  </div>
+</div>
+<nav class="bottom-nav">
+  <button class="nav-item active" id="nav-manage" onclick="showScreen('manage')">
+    <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    <span>Quản lý công việc</span>
+  </button>
+  <button class="nav-item" id="nav-report" onclick="showScreen('report')">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    <span>Báo cáo</span>
+  </button>
+</nav>
+</div>
+
+<!-- ADD/EDIT MODAL -->
+<div class="modal-overlay" id="addModal" onclick="closeAddModal(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-hdr">
+      <div class="modal-title" id="add-modal-title">📋 Thêm Công việc mới</div>
+      <button class="modal-close" onclick="closeAddModalDirect()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="edit-banner" class="edit-banner" style="display:none">✏️ Đang chỉnh sửa thông tin công việc</div>
+      <div class="form-group">
+        <label class="form-label">Tên công việc <span class="req">*</span></label>
+        <input class="form-control" id="f-name" placeholder="Nhập tên công việc..." type="text">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nội dung cần làm</label>
+        <textarea class="form-control" id="f-content" placeholder="Mô tả chi tiết nội dung..." rows="3"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Nơi công tác</label>
+          <input class="form-control" id="f-location" placeholder="Địa điểm..." type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Deadline <span class="req">*</span></label>
+          <input class="form-control" id="f-deadline" type="date">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Người chủ trì</label>
+          <input class="form-control" id="f-leader" placeholder="Tên..." type="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Người phối hợp</label>
+          <input class="form-control" id="f-coworker" placeholder="Tên..." type="text">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Ghi chú</label>
+        <textarea class="form-control" id="f-notes" placeholder="Ghi chú thêm..." rows="2"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Văn bản đính kèm</label>
+        <div class="fupload">
+          <input type="file" id="f-files" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg" onchange="handleFiles(this)">
+          <div class="fz-icon">📎</div>
+          <div class="fz-lbl">Chạm để chọn file</div>
+          <div class="fz-hint">PDF, Word, Excel, ảnh...</div>
+        </div>
+        <div class="file-list" id="file-list"></div>
+      </div>
+      <button class="btn btn-primary" id="save-btn" onclick="saveTask()">✓  Lưu Công việc</button>
+    </div>
+  </div>
+</div>
+
+<!-- TASK DETAIL MODAL -->
+<div class="modal-overlay" id="taskModal" onclick="closeTaskModal(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-hdr">
+      <div class="modal-title" id="modal-task-title">Chi tiết</div>
+      <button class="modal-close" onclick="closeTaskModalDirect()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="success-check" id="sIcon">✅</div>
+    <div class="success-title" id="sTitle">Thành công!</div>
+    <div class="success-sub" id="sSub"></div>
+  </div>
+</div>
+
+<script>
+let tasks = JSON.parse(localStorage.getItem('pwork_tasks')||'[]');
+let attachedFiles=[], currentFilter='all', currentTaskId=null, editingTaskId=null, modalReportFiles=[];
+const GAS_URL='';
+
+function save(){localStorage.setItem('pwork_tasks',JSON.stringify(tasks));}
+function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>');}
+function fmtDate(iso){return iso?new Date(iso).toLocaleDateString('vi-VN'):'';}
+function ficon(type){if(!type)return'📎';if(type.includes('pdf'))return'📄';if(type.includes('word')||type.includes('document'))return'📝';if(type.includes('sheet')||type.includes('excel'))return'📊';if(type.includes('image'))return'🖼️';return'📎';}
+function fmtSz(b){return b<1024?b+'B':b<1048576?(b/1024).toFixed(0)+'KB':(b/1048576).toFixed(1)+'MB';}
+function bc(p){return p>=100?'p100':p>=66?'p75':p>=33?'p50':p>0?'p25':'p0';}
+function plblColor(p){return p>15?'#fff':'var(--text3)';}
+
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  const nav=document.getElementById('nav-'+name);if(nav)nav.classList.add('active');
+  if(name==='manage'){renderList();updateSubtitle();}
+  if(name==='report')renderReport();
+}
+
+function updateSubtitle(){
+  const total=tasks.length,done=tasks.filter(t=>getStatus(t)==='done').length;
+  document.getElementById('top-subtitle').textContent=total?`${total} công việc · ${done} hoàn thành`:'Quản lý Công việc';
+}
+
+function openAddNew(){
+  editingTaskId=null;attachedFiles=[];
+  ['f-name','f-content','f-location','f-leader','f-coworker','f-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-deadline').value='';
+  document.getElementById('file-list').innerHTML='';
+  document.getElementById('add-modal-title').textContent='📋 Thêm Công việc mới';
+  document.getElementById('save-btn').textContent='✓  Lưu Công việc';
+  document.getElementById('edit-banner').style.display='none';
+  document.getElementById('addModal').classList.add('open');
+}
+
+function openEditTask(id){
+  const t=tasks.find(x=>x.id===id);if(!t)return;
+  editingTaskId=id;attachedFiles=[...(t.files||[])];
+  document.getElementById('f-name').value=t.name||'';
+  document.getElementById('f-content').value=t.content||'';
+  document.getElementById('f-location').value=t.location||'';
+  document.getElementById('f-deadline').value=t.deadline||'';
+  document.getElementById('f-leader').value=t.leader||'';
+  document.getElementById('f-coworker').value=t.coworker||'';
+  document.getElementById('f-notes').value=t.notes||'';
+  renderFileList();
+  document.getElementById('add-modal-title').textContent='✏️ Chỉnh sửa Công việc';
+  document.getElementById('save-btn').textContent='✓  Lưu chỉnh sửa';
+  document.getElementById('edit-banner').style.display='flex';
+  document.getElementById('taskModal').classList.remove('open');
+  setTimeout(()=>document.getElementById('addModal').classList.add('open'),180);
+}
+
+function closeAddModal(e){if(e.target===document.getElementById('addModal'))closeAddModalDirect();}
+function closeAddModalDirect(){document.getElementById('addModal').classList.remove('open');editingTaskId=null;attachedFiles=[];}
+
+function handleFiles(input){
+  Array.from(input.files).forEach(f=>{
+    const r=new FileReader();
+    r.onload=e=>{attachedFiles.push({name:f.name,size:f.size,type:f.type,data:e.target.result});renderFileList();};
+    r.readAsDataURL(f);
+  });input.value='';
+}
+function renderFileList(){
+  const list=document.getElementById('file-list');if(!list)return;
+  list.innerHTML=attachedFiles.map((f,i)=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span><span class="fsz">${fmtSz(f.size)}</span><button class="rmf" onclick="removeFile(${i})">✕</button></div>`).join('');
+}
+function removeFile(i){attachedFiles.splice(i,1);renderFileList();}
+
+function saveTask(){
+  const name=document.getElementById('f-name').value.trim();
+  const deadline=document.getElementById('f-deadline').value;
+  if(!name){showToast('⚠️ Vui lòng nhập tên công việc');return;}
+  if(!deadline){showToast('⚠️ Vui lòng chọn deadline');return;}
+
+  if(editingTaskId){
+    const t=tasks.find(x=>x.id===editingTaskId);if(!t)return;
+    t.name=name;t.content=document.getElementById('f-content').value.trim();
+    t.location=document.getElementById('f-location').value.trim();t.deadline=deadline;
+    t.leader=document.getElementById('f-leader').value.trim();t.coworker=document.getElementById('f-coworker').value.trim();
+    t.notes=document.getElementById('f-notes').value.trim();t.files=[...attachedFiles];
+    save();closeAddModalDirect();renderList();
+    showSuccess('✅','Đã cập nhật thông tin!',name);
+  } else {
+    const task={id:genId(),name,content:document.getElementById('f-content').value.trim(),
+      location:document.getElementById('f-location').value.trim(),leader:document.getElementById('f-leader').value.trim(),
+      coworker:document.getElementById('f-coworker').value.trim(),notes:document.getElementById('f-notes').value.trim(),
+      deadline,createdAt:new Date().toISOString(),progress:0,deployed:'',plan:'',report:'',
+      reportFiles:[],completedAt:null,files:[...attachedFiles]};
+    tasks.unshift(task);save();attachedFiles=[];
+    closeAddModalDirect();renderList();updateSubtitle();
+    showSuccess('🎉','Đã tạo công việc!',name);
+    showScreen('manage');
+  }
+}
+
+function getStatus(t){
+  if(t.completedAt||t.progress===100)return'done';
+  if(!t.deadline)return t.progress>0?'inprogress':'new';
+  const now=new Date();now.setHours(0,0,0,0);
+  const dl=new Date(t.deadline);
+  if(dl<now)return'overdue';
+  if(t.progress>0)return'inprogress';
+  return'new';
+}
+
+function setFilter(f,el){currentFilter=f;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderList();}
+
+function renderList(){
+  const q=(document.getElementById('search-input')?.value||'').toLowerCase();
+  let filtered=tasks.filter(t=>{
+    if(q&&!t.name.toLowerCase().includes(q)&&!(t.leader||'').toLowerCase().includes(q)&&!(t.location||'').toLowerCase().includes(q))return false;
+    const s=getStatus(t);
+    if(currentFilter==='done')return s==='done';
+    if(currentFilter==='inprogress')return s==='inprogress'||s==='new';
+    if(currentFilter==='overdue')return s==='overdue';
+    return true;
+  });
+  const el=document.getElementById('task-list');if(!el)return;
+  if(!filtered.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">Không có công việc</div><div class="empty-desc">Nhấn + để thêm công việc mới</div></div>';return;}
+  const sM={new:'s-new',inprogress:'s-prog',done:'s-done',overdue:'s-over'};
+  const sL={new:'Chưa bắt đầu',inprogress:'Đang triển khai',done:'Hoàn thành',overdue:'Quá hạn'};
+  const sI={new:'📋',inprogress:'🔄',done:'✅',overdue:'⚠️'};
+  const sB={new:'#EFF6FF',inprogress:'#FFF7ED',done:'#F0FDF4',overdue:'#FEF2F2'};
+  el.innerHTML=filtered.map(t=>{
+    const s=getStatus(t),p=t.progress||0;
+    return`<div class="task-card" onclick="openTask('${t.id}')">
+      <div class="tc-head">
+        <div class="tc-icon" style="background:${sB[s]}">${sI[s]}</div>
+        <div style="flex:1;min-width:0"><div class="tc-title">${esc(t.name)}</div><div class="tc-meta">${t.leader?'👤 '+esc(t.leader):''} ${t.location?'· 📍'+esc(t.location):''}</div></div>
+        <span class="sbadge ${sM[s]}">${sL[s]}</span>
+      </div>
+      <div class="tc-chips">
+        ${t.deadline?`<span class="chip ${s==='overdue'?'chip-red':'chip-gray'}">📅 ${fmtDate(t.deadline)}</span>`:''}
+        ${(t.files||[]).length?`<span class="chip chip-blue">📎 ${t.files.length} file</span>`:''}
+        ${t.completedAt?`<span class="chip chip-green">✅ ${fmtDate(t.completedAt)}</span>`:''}
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar ${bc(p)}" style="width:${p}%"></div>
+        <div class="plbl" style="color:${plblColor(p)}">${p}%</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openTask(id){
+  const t=tasks.find(x=>x.id===id);if(!t)return;
+  currentTaskId=id;modalReportFiles=[];
+  document.getElementById('modal-task-title').textContent=t.name;
+  const s=getStatus(t),p=t.progress||0;
+  const sM={new:'s-new',inprogress:'s-prog',done:'s-done',overdue:'s-over'};
+  const sL={new:'Chưa bắt đầu',inprogress:'Đang triển khai',done:'Hoàn thành',overdue:'Quá hạn'};
+
+  const existRF=(t.reportFiles||[]).map((f,i)=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span><a href="${f.data}" download="${f.name}" style="color:var(--blue);font-size:12px;text-decoration:none;flex-shrink:0">⬇️</a><button class="rmf" onclick="rmExRF(${i})">✕</button></div>`).join('');
+  const taskF=(t.files||[]).length?`<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">📎 Văn bản đính kèm</div>${t.files.map(f=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span><a href="${f.data}" download="${f.name}" style="color:var(--blue);font-size:12px;text-decoration:none;flex-shrink:0">⬇️</a></div>`).join('')}<div style="height:12px"></div>`:'';
+
+  document.getElementById('modal-body').innerHTML=`
+    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:13px">
+      <span class="sbadge ${sM[s]}">${sL[s]}</span>
+      ${t.deadline?`<span class="chip chip-gray">📅 ${fmtDate(t.deadline)}</span>`:''}
+      ${t.completedAt?`<span class="chip chip-green">✅ HT: ${fmtDate(t.completedAt)}</span>`:''}
+    </div>
+    ${t.content?`<div style="font-size:13px;color:var(--text2);background:var(--bg);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:13px;line-height:1.6;border:1px solid var(--border)">${esc(t.content)}</div>`:''}
+    <div class="meta-grid">
+      ${t.leader?`<div class="meta-item"><div class="ml">Chủ trì</div><div class="mv">${esc(t.leader)}</div></div>`:''}
+      ${t.coworker?`<div class="meta-item"><div class="ml">Phối hợp</div><div class="mv">${esc(t.coworker)}</div></div>`:''}
+      ${t.location?`<div class="meta-item"><div class="ml">Nơi công tác</div><div class="mv">${esc(t.location)}</div></div>`:''}
+      <div class="meta-item"><div class="ml">Ngày tạo</div><div class="mv">${fmtDate(t.createdAt)}</div></div>
+    </div>
+    ${taskF}
+    <div class="acc">
+      <div class="acc-hdr" onclick="toggleAcc('progress')"><span>📈 Cập nhật tiến độ</span><span class="acc-arrow open" id="arr-progress">▼</span></div>
+      <div class="acc-body open" id="body-progress">
+        <div class="slider-val" id="slider-val">${p}%</div>
+        <input type="range" class="slider" min="0" max="100" step="5" value="${p}" id="progress-slider" oninput="updateSlider(this.value)">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:4px;margin-bottom:10px"><span>0%</span><span>50%</span><span>100%</span></div>
+        <div class="progress-wrap"><div class="progress-bar ${bc(p)}" id="modal-bar" style="width:${p}%"></div><div class="plbl" id="modal-bar-lbl" style="color:${plblColor(p)}">${p}%</div></div>
+      </div>
+    </div>
+    <div class="acc">
+      <div class="acc-hdr" onclick="toggleAcc('deployed')"><span>✅ Đã triển khai</span><span class="acc-arrow" id="arr-deployed">▼</span></div>
+      <div class="acc-body" id="body-deployed"><textarea class="form-control" id="modal-deployed" rows="3" placeholder="Những việc đã thực hiện...">${t.deployed||''}</textarea></div>
+    </div>
+    <div class="acc">
+      <div class="acc-hdr" onclick="toggleAcc('plan')"><span>📅 Kế hoạch tiếp theo</span><span class="acc-arrow" id="arr-plan">▼</span></div>
+      <div class="acc-body" id="body-plan"><textarea class="form-control" id="modal-plan" rows="3" placeholder="Kế hoạch triển khai sắp tới...">${t.plan||''}</textarea></div>
+    </div>
+    <div class="acc">
+      <div class="acc-hdr" onclick="toggleAcc('report-acc')"><span>📋 Báo cáo kết quả</span><span class="acc-arrow" id="arr-report-acc">▼</span></div>
+      <div class="acc-body" id="body-report-acc">
+        <textarea class="form-control" id="modal-report" rows="3" placeholder="Kết quả đạt được..." style="margin-bottom:10px">${t.report||''}</textarea>
+        <div class="fupload" style="padding:10px 12px">
+          <input type="file" id="modal-rfile" multiple onchange="handleRF(this)">
+          <div class="fz-lbl" style="font-size:12px">📎 Đính kèm file báo cáo</div>
+        </div>
+        <div class="file-list" id="report-file-list" style="margin-top:6px">${existRF}</div>
+      </div>
+    </div>
+    ${t.notes?`<div style="font-size:12px;color:var(--text3);padding:6px 0;margin-bottom:4px">💬 ${esc(t.notes)}</div>`:''}
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <button class="btn btn-primary" onclick="updateTask()" style="flex:3">💾 Cập nhật tiến độ</button>
+      <button class="btn btn-outline btn-sm" onclick="openEditTask('${t.id}')" style="flex:1;width:auto">✏️</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteTask('${t.id}')" style="flex:1;width:auto">🗑️</button>
+    </div>`;
+  document.getElementById('taskModal').classList.add('open');
+}
+
+function updateSlider(val){
+  val=parseInt(val);
+  document.getElementById('slider-val').textContent=val+'%';
+  const bar=document.getElementById('modal-bar'),lbl=document.getElementById('modal-bar-lbl');
+  if(bar){bar.style.width=val+'%';bar.className='progress-bar '+bc(val);}
+  if(lbl){lbl.textContent=val+'%';lbl.style.color=plblColor(val);}
+}
+
+function updateTask(){
+  const t=tasks.find(x=>x.id===currentTaskId);if(!t)return;
+  const progress=parseInt(document.getElementById('progress-slider').value);
+  t.progress=progress;
+  t.deployed=document.getElementById('modal-deployed').value;
+  t.plan=document.getElementById('modal-plan').value;
+  t.report=document.getElementById('modal-report').value;
+  if(modalReportFiles.length){t.reportFiles=[...(t.reportFiles||[]),...modalReportFiles];modalReportFiles=[];}
+  if((progress===100||t.report.trim())&&!t.completedAt){t.completedAt=new Date().toISOString();}
+  else if(progress<100&&!t.report.trim()){t.completedAt=null;}
+  save();closeTaskModalDirect();renderList();updateSubtitle();
+  showSuccess('💾','Đã cập nhật!',`Tiến độ: ${progress}%`);
+  autoSync(t);
+}
+
+function handleRF(input){
+  Array.from(input.files).forEach(f=>{
+    const r=new FileReader();r.onload=e=>{modalReportFiles.push({name:f.name,size:f.size,type:f.type,data:e.target.result});renderRFL();};r.readAsDataURL(f);
+  });input.value='';
+}
+function renderRFL(){
+  const list=document.getElementById('report-file-list');if(!list)return;
+  const t=tasks.find(x=>x.id===currentTaskId);
+  const ex=(t?.reportFiles||[]).map((f,i)=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span><a href="${f.data}" download="${f.name}" style="color:var(--blue);font-size:12px;text-decoration:none;flex-shrink:0">⬇️</a><button class="rmf" onclick="rmExRF(${i})">✕</button></div>`).join('');
+  const nw=modalReportFiles.map((f,i)=>`<div class="file-item"><span>${ficon(f.type)}</span><span class="fn">${esc(f.name)}</span><button class="rmf" onclick="rmNRF(${i})">✕</button></div>`).join('');
+  list.innerHTML=ex+nw;
+}
+function rmExRF(i){const t=tasks.find(x=>x.id===currentTaskId);if(t){t.reportFiles.splice(i,1);save();}renderRFL();}
+function rmNRF(i){modalReportFiles.splice(i,1);renderRFL();}
+
+function deleteTask(id){
+  if(!confirm('Xóa công việc này?'))return;
+  tasks=tasks.filter(x=>x.id!==id);save();closeTaskModalDirect();renderList();updateSubtitle();
+  showToast('🗑️ Đã xóa công việc');
+}
+
+function toggleAcc(name){
+  const body=document.getElementById('body-'+name),arr=document.getElementById('arr-'+name);
+  if(!body||!arr)return;
+  body.classList.toggle('open');arr.classList.toggle('open');
+}
+
+function closeTaskModal(e){if(e.target===document.getElementById('taskModal'))closeTaskModalDirect();}
+function closeTaskModalDirect(){document.getElementById('taskModal').classList.remove('open');currentTaskId=null;modalReportFiles=[];}
+
+function renderReport(){
+  const days=parseInt(document.getElementById('report-period').value);
+  const since=new Date(Date.now()-days*86400000);
+  const relevant=tasks.filter(t=>new Date(t.createdAt)>=since||(t.completedAt&&new Date(t.completedAt)>=since));
+  const done=relevant.filter(t=>getStatus(t)==='done');
+  const inprog=relevant.filter(t=>['inprogress','new'].includes(getStatus(t)));
+  const overdue=relevant.filter(t=>getStatus(t)==='overdue');
+  const avg=relevant.length?Math.round(relevant.reduce((s,t)=>s+(t.progress||0),0)/relevant.length):0;
+  const el=document.getElementById('report-content');
+  el.innerHTML=`
+    <div class="report-grid" style="margin-top:0">
+      <div class="rstat"><div class="rv" style="color:var(--navy)">${relevant.length}</div><div class="rl">Tổng</div></div>
+      <div class="rstat"><div class="rv" style="color:var(--green)">${done.length}</div><div class="rl">Hoàn thành</div></div>
+      <div class="rstat"><div class="rv" style="color:var(--blue)">${inprog.length}</div><div class="rl">Đang triển khai</div></div>
+      <div class="rstat"><div class="rv" style="color:var(--red)">${overdue.length}</div><div class="rl">Quá hạn</div></div>
+    </div>
+    <div class="card" style="margin:0 14px 12px">
+      <div class="card-body">
+        <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:7px">Tiến độ trung bình: <span style="color:var(--blue)">${avg}%</span></div>
+        <div class="progress-wrap"><div class="progress-bar ${bc(avg)}" style="width:${avg}%"></div><div class="plbl" style="color:${plblColor(avg)}">${avg}%</div></div>
+      </div>
+    </div>
+    ${inprog.length?`<div class="section-title">🔄 Đang triển khai (${inprog.length})</div>${inprog.map(rCard).join('')}`:''}
+    ${overdue.length?`<div class="section-title" style="color:var(--red)">⚠️ Quá hạn (${overdue.length})</div>${overdue.map(rCard).join('')}`:''}
+    ${done.length?`<div class="section-title" style="color:var(--green)">✅ Hoàn thành (${done.length})</div>${done.map(rCard).join('')}`:''}
+    ${!relevant.length?'<div class="empty-state"><div class="empty-icon">📊</div><div class="empty-title">Chưa có dữ liệu</div><div class="empty-desc">Thêm công việc để xem báo cáo</div></div>':''}`;
+}
+
+function rCard(t){const p=t.progress||0;return`<div class="task-card" onclick="openTask('${t.id}')"><div style="font-size:13px;font-weight:600;color:var(--text1);margin-bottom:6px">${esc(t.name)}</div>${t.leader?`<div style="font-size:11px;color:var(--text3);margin-bottom:6px">👤 ${esc(t.leader)}${t.location?' · 📍'+esc(t.location):''}</div>`:''}<div class="progress-wrap"><div class="progress-bar ${bc(p)}" style="width:${p}%"></div><div class="plbl" style="color:${plblColor(p)}">${p}%</div></div>${t.deployed?`<div style="font-size:11px;color:var(--text2);margin-top:7px;line-height:1.4">✅ ${esc(t.deployed.substring(0,100))}${t.deployed.length>100?'...':''}</div>`:''}</div>`;}
+
+function exportReport(){
+  const days=parseInt(document.getElementById('report-period').value);
+  const since=new Date(Date.now()-days*86400000);
+  const relevant=tasks.filter(t=>new Date(t.createdAt)>=since||(t.completedAt&&new Date(t.completedAt)>=since));
+  const done=relevant.filter(t=>getStatus(t)==='done');
+  const inprog=relevant.filter(t=>getStatus(t)!=='done');
+  let txt=`BÁO CÁO CÔNG VIỆC — PWork\nKỳ: ${days} ngày (từ ${since.toLocaleDateString('vi-VN')})\nXuất: ${new Date().toLocaleString('vi-VN')}\n\nTỔNG HỢP: ${relevant.length} công việc | ${done.length} hoàn thành | ${inprog.length} còn lại\n\n=== ĐANG TRIỂN KHAI ===\n`;
+  inprog.forEach((t,i)=>{txt+=`${i+1}. ${t.name} [${t.progress}%]\n`;if(t.leader)txt+=`   Chủ trì: ${t.leader}\n`;if(t.deployed)txt+=`   Đã làm: ${t.deployed}\n`;if(t.plan)txt+=`   Kế hoạch: ${t.plan}\n`;txt+='\n';});
+  txt+=`=== HOÀN THÀNH ===\n`;
+  done.forEach((t,i)=>{txt+=`${i+1}. ${t.name} — HT: ${t.completedAt?fmtDate(t.completedAt):'N/A'}\n`;if(t.report)txt+=`   Kết quả: ${t.report}\n`;txt+='\n';});
+  const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`pwork-baocao-${new Date().toISOString().slice(0,10)}.txt`;a.click();URL.revokeObjectURL(url);
+  showToast('📤 Đã xuất báo cáo');
+}
+
+let sTimer;
+function showSuccess(icon,title,sub){
+  document.getElementById('sIcon').textContent=icon;
+  document.getElementById('sTitle').textContent=title;
+  document.getElementById('sSub').textContent=sub||'';
+  const ov=document.getElementById('successOverlay');
+  ov.classList.add('show');
+  clearTimeout(sTimer);
+  sTimer=setTimeout(()=>ov.classList.remove('show'),1600);
+}
+
+let tTimer;
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(tTimer);tTimer=setTimeout(()=>t.classList.remove('show'),2200);}
+
+function syncGSheet(){
+  if(!GAS_URL){showToast('⚙️ Chưa cấu hình GAS URL');return;}
+  const bar=document.getElementById('syncBar');
+  document.getElementById('syncMsg').textContent='Đang đồng bộ Google Sheet...';
+  document.getElementById('syncDot').classList.add('pulsing');
+  bar.style.display='flex';
+  const payload=tasks.map(t=>({id:t.id,name:t.name,content:t.content,location:t.location,leader:t.leader,coworker:t.coworker,deadline:t.deadline,createdAt:t.createdAt,progress:t.progress,deployed:t.deployed,plan:t.plan,report:t.report,completedAt:t.completedAt,notes:t.notes,fileCount:(t.files||[]).length+(t.reportFiles||[]).length}));
+  fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'syncAll',tasks:payload})})
+    .then(r=>r.json()).then(()=>hideSyncBar('✅ Đồng bộ thành công!'))
+    .catch(()=>hideSyncBar('❌ Lỗi kết nối'));
+}
+function autoSync(t){if(!GAS_URL)return;fetch(GAS_URL,{method:'POST',body:JSON.stringify({action:'updateTask',task:{id:t.id,name:t.name,progress:t.progress,deployed:t.deployed,plan:t.plan,report:t.report,completedAt:t.completedAt}})}).catch(()=>{});}
+function hideSyncBar(msg){document.getElementById('syncMsg').textContent=msg;document.getElementById('syncDot').classList.remove('pulsing');setTimeout(()=>document.getElementById('syncBar').style.display='none',2500);showToast(msg);}
+
+showScreen('manage');
+</script>
+<script>
+let dp;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;});
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
