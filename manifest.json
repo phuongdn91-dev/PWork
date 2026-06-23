@@ -2,15 +2,16 @@
   "name": "PWork — Quản lý Công việc",
   "short_name": "PWork",
   "description": "Quản lý công việc, văn bản liên quan, tiến độ hàng ngày",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#1565C0",
   "theme_color": "#1565C0",
   "orientation": "portrait",
   "lang": "vi",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "categories": ["productivity", "utilities"]
 }

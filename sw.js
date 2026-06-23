@@ -1,13 +1,14 @@
-const CACHE = 'pwork-v1';
-const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json'
-];
+const CACHE = 'pwork-v3';
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(ASSETS))
+    caches.open(CACHE).then(c => c.addAll([
+      './',
+      './index.html',
+      './manifest.json',
+      './icon-192.png',
+      './icon-512.png'
+    ])).catch(() => {})
   );
   self.skipWaiting();
 });
@@ -23,10 +24,9 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
-  // Network-first for GAS API calls, cache-first for assets
   const url = new URL(e.request.url);
-  if (url.host.includes('script.google.com')) {
-    e.respondWith(fetch(e.request).catch(() => new Response('offline', {status: 503})));
+  // GAS và Anthropic API: luôn dùng network
+  if (url.host.includes('script.google.com') || url.host.includes('anthropic.com') || url.host.includes('googleapis.com')) {
     return;
   }
   e.respondWith(
@@ -37,6 +37,6 @@ self.addEventListener('fetch', e => {
         caches.open(CACHE).then(c => c.put(e.request, clone));
         return res;
       });
-    }).catch(() => caches.match('/index.html'))
+    }).catch(() => caches.match('./index.html'))
   );
 });
